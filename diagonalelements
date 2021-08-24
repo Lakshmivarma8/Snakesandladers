@@ -1,0 +1,40 @@
+#include<stdio.h>
+void
+main ()
+{
+  int rm, cm, sum = 0;
+  int *ptr;
+  printf ("Enter no of rows and columns:");
+  scanf ("%d%d", &rm, &cm);
+  int mat[rm][cm], i, j;
+  printf ("\nEnter matrix:");
+  for (i = 0; i < rm; i++)
+    {
+      for (j = 0; j < cm; j++)
+	{
+	  scanf ("%d", &mat[i][j]);
+	}
+    }
+    ptr=&mat[0][0];
+  printf ("matrix\n");
+  for (i = 0; i < rm; i++)
+    {
+      for (j = 0; j < cm; j++)
+	{
+	  printf ("%d\t",*(ptr+(i*cm)+j));
+	}
+      printf ("\n");
+    }
+  for (i = 0; i < rm; i++)
+    {
+      for (j = 0; j < cm; j++)
+	{
+	  if (i == j)
+	    {
+	      sum += mat[i][j];
+	    }
+	}
+      printf ("\n");
+    }
+  printf ("\nSUM OF DIAGONAL ELEMENTS = %d", sum);
+}
