@@ -1,0 +1,28 @@
+#include <stdio.h>
+struct emp 
+{
+    int empid;
+    char empname[10],des[10];
+    float sal;
+};
+void main()
+{
+struct emp e[10];
+int n;
+printf("Enter how many records:");
+scanf("%d",&n);
+    for(int i=0;i<n;i++)
+    {
+    printf("Enter Empnname,designation, and salary of Empid %d:",i+1);
+    scanf("%s%s%f",e[i].empname,e[i].des,&e[i].sal);
+    printf("Enter Qualifications:");
+    
+    }
+printf("Empno\tEmpname\tDesignation\tSalary\tQualifacton\n");
+printf("-----------------------------------------------------------");
+    for(int i=0;i<n;i++)
+    {
+        printf("\n%d\t%s\t%s\t%f\t",i+1,e[i].empname,e[i].des,e[i].sal);
+         
+    }
+}
