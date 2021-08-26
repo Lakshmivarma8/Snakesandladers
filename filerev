@@ -1,0 +1,31 @@
+#include <stdio.h>
+void main()
+{
+    FILE *fptr;
+    FILE *fp;
+    char c,ch;
+    int cnt=0,i=0;
+    fptr=fopen("data.txt","w");
+    while((c=getchar())!=EOF)
+    {
+    putc(c,fptr);
+    }
+    fseek(fptr,0,SEEK_END);
+    //get the position of file pointer.
+    cnt = ftell(fptr);
+    fclose(fptr);//press ctrl+d
+    printf("\nData written to file\n");
+    printf("%d",cnt);
+    fp=fopen("ddata.txt","w");
+    fptr=fopen("data.txt","r");
+    while(i<cnt)
+    {
+        i++;
+        fseek(fptr,-i,SEEK_END);
+       c=getc(fptr);
+       fputc(c,fp);
+      
+    }
+    fclose(fp);
+}
+
