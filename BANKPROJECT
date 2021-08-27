@@ -1,0 +1,160 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <conio.h>
+struct bank
+{
+    int acno;
+    char name[10];
+    float balance;
+};
+void main()
+{
+    struct bank b[10];
+    int ch,i,n,ac,count=0,pass;
+    float amt;
+    FILE *fp;
+    fp=fopen("bank.txt","w");
+        fprintf(fp,"**************************************************************\n");
+        fprintf(fp,"                       BANK ACCOUNTS DATA                       ");
+        fprintf(fp,"\n**************************************************************\n");
+        fclose(fp);
+        printf("\t\t\tEnter Password : ");
+        scanf("%d",&pass);
+        if(pass!=1234)
+        {
+        printf("\t\t\tINVALID PASSWORD. PLEASE ENTER RIGHT PASSWORD.");
+        exit(0);
+        }
+       clrscr();
+    do
+    {
+        printf("\n\n\t\t\t***************************************************\n");
+        printf("\t\t\t*                      BANKING                    *\n");
+        printf("\t\t\t***************************************************\n");
+        printf("\n1.Add New account\n2.Deposit Amount\n3.Withdraw Amount\n4.Customer Report\n5.Exit\n");
+        printf("Enter a choice:");
+        scanf("%d",&ch);
+        switch(ch)
+        {
+            case 1: for(i=count;i<count+1;i++)
+                    {
+                        printf("\nEnter name:");
+                        scanf("%s",b[i].name);
+                        printf("\nEnter Amount to be deposited:");
+                        scanf("%f",&b[i].balance);
+                        if(b[i].balance<500)
+                        {
+                        printf("\nInsufficient Balance amount. Minimum balance is 500.");
+                        printf("\nError..... Account not created");
+                        }
+                        else
+                        {
+                            fp=fopen("bank.txt","a");
+                            b[i].acno=count+100;
+                            fprintf(fp,"%d\t%s\t%f\n",b[i].acno,b[i].name,b[i].balance);
+                            printf("\nACCOUNT CREATED SUCCESSFULLY!!\nTHANK YOU!\n");
+                        }
+                        fscanf(fp,"%d\t%s\t%f\n",&b[i].acno,b[i].name,&b[i].balance);
+                        printf("\n%d\t%s\t%f\n",b[i].acno,b[i].name,b[i].balance);
+                        fclose(fp);
+                    }
+                    count++;//to get the no. of times loop has executed
+                        break;
+                        
+                        
+           case 2:  printf("Enter account number:");
+                   scanf("%d",&ac);
+                   fp=fopen("bank.txt","w");
+                   for(i=0;i<count;i++)
+                  {
+                   fscanf(fp,"%d\t%s\t%f\n",&b[i].acno,b[i].name,&b[i].balance);
+                   if(b[i].acno==ac)
+                   {
+                   printf("\nEnter Amount to deposit:");
+                   scanf("%f",&amt);
+                   b[i].balance=b[i].balance+amt;
+                   printf("\nAMOUNT DEPOSITED SUCCESSFULLY!!\n");
+                   fclose(fp);
+                   break;
+                   }
+                  }
+                  if(i==count)//avoided else to reduce repetitive error message printing
+                  printf("\nERROR..!ACCOUNT NOT FOUND.!\nENTER VALID ACCOUNT NUMBER.\n");
+                  else
+                  {
+                  for(i=0;i<count;i++)
+                  {
+                  fp=fopen("bank.txt","a");
+                   fprintf(fp,"%d\t%s\t%f\n",b[i].acno,b[i].name,b[i].balance);
+                   fscanf(fp,"%d\t%s\t%f\n",&b[i].acno,b[i].name,&b[i].balance);
+                   if(b[i].acno==ac)
+                   printf("\n%d\t%s\t%f\n",b[i].acno,b[i].name,b[i].balance);
+                   fclose(fp);
+                  }
+                  }
+                   break;
+
+                   
+                   
+           case 3: printf("Enter account number:");
+                   scanf("%d",&ac);
+                   fp=fopen("bank.txt","w");
+                   for(i=0;i<count;i++)
+                  {
+                   fscanf(fp,"%d\t%s\t%f\n",&b[i].acno,b[i].name,&b[i].balance);
+                   if(b[i].acno==ac)
+                   {
+                   printf("\nEnter Amount to withdraw:");
+                   scanf("%f",&amt);
+                   if(b[i].balance>amt+500)
+                   {
+                   b[i].balance=b[i].balance-amt;
+                   printf("\nAMOUNT WITHDRAWED SUCCESSFULLY!!\nTHANK YOU!\n");
+                   fclose(fp);
+                   break;
+                   }
+                   else
+                   printf("\nINSUFFICIENT BALANCE!!\nMinimum Balance needed is 500.\n");
+                   }
+                  }
+                  if(i==count)
+                  printf("\nERROR..!ACCOUNT NOT FOUND.!\nENTER VALID ACCOUNT NUMBER.\n");
+                  else
+                  {
+                  for(i=0;i<count;i++)
+                  {
+                  fp=fopen("bank.txt","a");
+                   fprintf(fp,"%d\t%s\t%f\n",b[i].acno,b[i].name,b[i].balance);
+                   fscanf(fp,"%d\t%s\t%f\n",&b[i].acno,b[i].name,&b[i].balance);
+                   if(b[i].acno==ac)
+                   printf("\n%d\t%s\t%f\n",b[i].acno,b[i].name,b[i].balance);
+                   fclose(fp);
+                  }
+                  }
+                   break;
+                   
+           case 4:printf("Enter account number:");
+                   scanf("%d",&ac);
+                   fp=fopen("bank.txt","r");
+                   for(i=0;i<count;i++)
+                  {
+                   if(b[i].acno==ac)
+                   {
+                       fscanf(fp,"%d\t%s\t%f\n",&b[i].acno,b[i].name,&b[i].balance);
+                       printf("\n%d\t%s\t%f\n",b[i].acno,b[i].name,b[i].balance);
+                       break;
+                   }
+                  }
+                  if(i==count)
+                  printf("\nERROR..!ACCOUNT NOT FOUND.!\nENTER VALID ACCOUNT NUMBER.\n");
+                  break;
+                       
+           case 5:exit(0);
+	                break;
+           default:printf("Invalid choice!");
+
+        }
+    }
+    while(ch<=5);
+}
+
